@@ -22,7 +22,7 @@
             border-radius: 8px;
             background-color: #fff;
         }
-        label {
+        label, select {
             display: block;
             margin-bottom: 10px;
         }
@@ -42,32 +42,87 @@
 <body>
     <h1>Number System Converter</h1>
     <div class="converter">
-        <label for="decimalInput">Enter Decimal Number:</label>
-        <input type="number" id="decimalInput" placeholder="Enter a number" oninput="convertNumber()">
+        <label for="conversionType">Select Conversion Type:</label>
+        <select id="conversionType" onchange="convertNumber()">
+            <option value="dec2bin">Decimal to Binary</option>
+            <option value="dec2oct">Decimal to Octal</option>
+            <option value="dec2hex">Decimal to Hexadecimal</option>
+            <option value="bin2dec">Binary to Decimal</option>
+            <option value="bin2oct">Binary to Octal</option>
+            <option value="bin2hex">Binary to Hexadecimal</option>
+            <option value="oct2dec">Octal to Decimal</option>
+            <option value="oct2bin">Octal to Binary</option>
+            <option value="oct2hex">Octal to Hexadecimal</option>
+            <option value="hex2dec">Hexadecimal to Decimal</option>
+            <option value="hex2bin">Hexadecimal to Binary</option>
+            <option value="hex2oct">Hexadecimal to Octal</option>
+        </select>
+        
+        <label for="numberInput">Enter Number:</label>
+        <input type="text" id="numberInput" placeholder="Enter a number" oninput="convertNumber()">
         
         <div class="result">
-            <p><strong>Binary:</strong> <span id="binaryResult"></span></p>
-            <p><strong>Octal:</strong> <span id="octalResult"></span></p>
-            <p><strong>Hexadecimal:</strong> <span id="hexadecimalResult"></span></p>
+            <p><strong>Result:</strong> <span id="conversionResult"></span></p>
         </div>
     </div>
 
     <script>
         function convertNumber() {
-            let decimalNumber = document.getElementById('decimalInput').value;
+            const conversionType = document.getElementById('conversionType').value;
+            let inputNumber = document.getElementById('numberInput').value.trim();
+            let result;
 
-            if (decimalNumber === '') {
-                document.getElementById('binaryResult').textContent = '';
-                document.getElementById('octalResult').textContent = '';
-                document.getElementById('hexadecimalResult').textContent = '';
+            if (inputNumber === '') {
+                document.getElementById('conversionResult').textContent = '';
                 return;
             }
 
-            decimalNumber = parseInt(decimalNumber);
+            try {
+                switch (conversionType) {
+                    case 'dec2bin':
+                        result = parseInt(inputNumber, 10).toString(2);
+                        break;
+                    case 'dec2oct':
+                        result = parseInt(inputNumber, 10).toString(8);
+                        break;
+                    case 'dec2hex':
+                        result = parseInt(inputNumber, 10).toString(16).toUpperCase();
+                        break;
+                    case 'bin2dec':
+                        result = parseInt(inputNumber, 2).toString(10);
+                        break;
+                    case 'bin2oct':
+                        result = parseInt(inputNumber, 2).toString(8);
+                        break;
+                    case 'bin2hex':
+                        result = parseInt(inputNumber, 2).toString(16).toUpperCase();
+                        break;
+                    case 'oct2dec':
+                        result = parseInt(inputNumber, 8).toString(10);
+                        break;
+                    case 'oct2bin':
+                        result = parseInt(inputNumber, 8).toString(2);
+                        break;
+                    case 'oct2hex':
+                        result = parseInt(inputNumber, 8).toString(16).toUpperCase();
+                        break;
+                    case 'hex2dec':
+                        result = parseInt(inputNumber, 16).toString(10);
+                        break;
+                    case 'hex2bin':
+                        result = parseInt(inputNumber, 16).toString(2);
+                        break;
+                    case 'hex2oct':
+                        result = parseInt(inputNumber, 16).toString(8);
+                        break;
+                    default:
+                        result = 'Invalid conversion type';
+                }
 
-            document.getElementById('binaryResult').textContent = decimalNumber.toString(2);
-            document.getElementById('octalResult').textContent = decimalNumber.toString(8);
-            document.getElementById('hexadecimalResult').textContent = decimalNumber.toString(16).toUpperCase();
+                document.getElementById('conversionResult').textContent = result;
+            } catch (error) {
+                document.getElementById('conversionResult').textContent = 'Invalid input';
+            }
         }
     </script>
 </body>

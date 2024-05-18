@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number System Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+        }
+        .converter {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #fff;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Number System Converter</h1>
+    <div class="converter">
+        <label for="decimalInput">Enter Decimal Number:</label>
+        <input type="number" id="decimalInput" placeholder="Enter a number" oninput="convertNumber()">
+        
+        <div class="result">
+            <p><strong>Binary:</strong> <span id="binaryResult"></span></p>
+            <p><strong>Octal:</strong> <span id="octalResult"></span></p>
+            <p><strong>Hexadecimal:</strong> <span id="hexadecimalResult"></span></p>
+        </div>
+    </div>
+
+    <script>
+        function convertNumber() {
+            let decimalNumber = document.getElementById('decimalInput').value;
+
+            if (decimalNumber === '') {
+                document.getElementById('binaryResult').textContent = '';
+                document.getElementById('octalResult').textContent = '';
+                document.getElementById('hexadecimalResult').textContent = '';
+                return;
+            }
+
+            decimalNumber = parseInt(decimalNumber);
+
+            document.getElementById('binaryResult').textContent = decimalNumber.toString(2);
+            document.getElementById('octalResult').textContent = decimalNumber.toString(8);
+            document.getElementById('hexadecimalResult').textContent = decimalNumber.toString(16).toUpperCase();
+        }
+    </script>
+</body>
+</html>
